@@ -1,0 +1,224 @@
+import React from "react";
+import "./navbar.scss";
+import { Link } from "react-router-dom";
+
+/*
+      <div className="navbar__inner">
+                  <div className="navbar__items">
+                      <button aria-label="Navigation bar toggle" className="navbar__toggle" type="button" tabIndex="0">
+                          <svg aria-label="Menu" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false">
+                              <title>Menu</title>
+                              <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
+                                    d="M4 7h22M4 15h22M4 23h22"></path>
+                          </svg>
+                      </button>
+                      <a className="navbar__brand" href="/">
+                          <img src="/img/redux.svg" alt="Redux Logo" className="themedImage_1VuW themedImage--light_3UqQ navbar__logo"/>
+                          <img src="/img/redux.svg" alt="Redux Logo" className="themedImage_1VuW themedImage--dark_hz6m navbar__logo"/>
+                          <strong className="navbar__title">Redux 中文官网</strong>
+                      </a>
+                  </div>
+                  <div className="navbar__items navbar__items--right">
+                      <a className="navbar__item navbar__link" href="/introduction/getting-started">入门</a>
+                      <a className="navbar__item navbar__link" href="/tutorials/essentials/part-1-overview-concepts">教程</a>
+                      <a className="navbar__item navbar__link" href="/api/api-reference">API</a>
+                      <a className="navbar__item navbar__link" href="/faq">常见问题</a>
+                      <a className="navbar__item navbar__link" href="/style-guide/style-guide">最佳实践</a>
+                      <a href="https://www.github.com/camsong/redux-in-chinese" target="_blank" rel="noopener noreferrer" className="navbar__item navbar__link">源码</a>
+                      <a href="https://github.com/camsong/redux-in-chinese/issues"
+                                                                     target="_blank" rel="noopener noreferrer"
+                                                                     className="navbar__item navbar__link">纠错</a>
+                      <div className="react-toggle displayOnlyInLargeViewport_GrZ2 react-toggle--disabled" role="button"
+                           tabIndex="-1">
+                          <div className="react-toggle-track">
+                              <div className="react-toggle-track-check"><span className="toggle_71bT">🌜</span></div>
+                              <div className="react-toggle-track-x"><span className="toggle_71bT">🌞</span></div>
+                          </div>
+                          <div className="react-toggle-thumb"></div>
+                          <input type="checkbox" className="react-toggle-screenreader-only"
+                                 aria-label="Switch between dark and light mode" /></div>
+                      <button type="button" className="DocSearch DocSearch-Button" aria-label="Search"><span
+                          className="DocSearch-Button-Container"><svg width="20" height="20" className="DocSearch-Search-Icon"
+                                                                      viewBox="0 0 20 20"><path
+                          d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
+                          stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round"
+                          stroke-linejoin="round"></path></svg><span
+                          className="DocSearch-Button-Placeholder">Search</span></span></button>
+                  </div>
+              </div>
+
+* */
+import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+//function Navigation() {
+class Navigation extends React.Component {
+    state = {
+        searchText: "",
+    };
+
+    handleRoute = (route) => () => {
+        this.props.history.push({ pathname: route });
+    };
+
+    handleSearchInput = (event) => {
+        this.setState({
+            searchText: event.target.value,
+        });
+    };
+
+    handleSearchSubmit = () => {
+        if (this.state.searchText) {
+            let text = this.state.searchText;
+            this.setState({ searchText: "" });
+            this.props.history.push({
+                pathname: "/results",
+                state: { searchText: text },
+            });
+        } else {
+            alert("Please enter some search text!");
+        }
+    };
+
+    handleSearchKeyUp = (event) => {
+        event.preventDefault();
+        if (event.key === "Enter" && event.keyCode === 13) {
+            this.handleSearchSubmit();
+        }
+    };
+
+    handleFormSubmit = (e) => e.preventDefault();
+
+    render() {
+        return (
+            // <div className="navigation">
+            //     <nav className="navbar navbar-expand navbar-dark bg-dark">
+            //         <div className="container">
+            //             <Link className="navbar-brand" to="/">
+            //                 React Redux-Saga Blog
+            //             </Link>
+            //             <Link className="navbar-list" to="/">
+            //                 list
+            //             </Link>
+            //             <Link className="navbar-about" to="/">
+            //                 list
+            //             </Link>
+            //
+            //         <Form inline onSubmit={this.handleFormSubmit}>
+            //             <FormControl
+            //                 onChange={this.handleSearchInput}
+            //                 value={this.state.searchText}
+            //                 onKeyUp={this.handleSearchKeyUp}
+            //                 type="text"
+            //                 placeholder="Search"
+            //                 className="mr-sm-2"
+            //             />
+            //             <Button onClick={this.handleSearchSubmit} variant="outline-info">
+            //                 Search
+            //             </Button>
+            //         </Form>
+            //             </div>
+            //     </nav>
+            //
+            // </div>
+
+            // <>
+            //     <Navbar bg="dark" variant="dark">
+            //         <Nav className="mr-auto">
+            //             <Nav.Link onClick={this.handleRoute("/")}>Home</Nav.Link>
+            //             <Nav.Link onClick={this.handleRoute("/about")}>About</Nav.Link>
+            //         </Nav>
+            //         <Form className={"form-inline"} onSubmit={this.handleFormSubmit}>
+            //             <FormControl
+            //                 onChange={this.handleSearchInput}
+            //                 value={this.state.searchText}
+            //                 onKeyUp={this.handleSearchKeyUp}
+            //                 type="text"
+            //                 placeholder="Search"
+            //                 className="mr-sm-2"
+            //             />
+            //             <Button onClick={this.handleSearchSubmit} variant="outline-info">
+            //                 Search
+            //             </Button>
+            //         </Form>
+            //     </Navbar>
+            // </>
+
+            // <>
+            // <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            //     <a className="navbar-brand" href="#">Navbar</a>
+            //     <button className="navbar-toggler" type="button" data-toggle="collapse"
+            //             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            //             aria-expanded="false" aria-label="Toggle navigation">
+            //         <span className="navbar-toggler-icon"></span>
+            //     </button>
+            //
+            //     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            //         <ul className="navbar-nav mr-auto">
+            //             <li className="nav-item active">
+            //                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+            //             </li>
+            //             <li className="nav-item">
+            //                 <a className="nav-link" href="#">Link</a>
+            //             </li>
+            //             <li className="nav-item dropdown">
+            //                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            //                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            //                     Dropdown
+            //                 </a>
+            //                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            //                     <a className="dropdown-item" href="#">Action</a>
+            //                     <a className="dropdown-item" href="#">Another action</a>
+            //                     <div className="dropdown-divider"></div>
+            //                     <a className="dropdown-item" href="#">Something else here</a>
+            //                 </div>
+            //             </li>
+            //             <li className="nav-item">
+            //                 <a className="nav-link disabled" href="#">Disabled</a>
+            //             </li>
+            //         </ul>
+            //         <form className="form-inline my-2 my-lg-0">
+            //             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+            //             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            //         </form>
+            //     </div>
+            // </nav>
+            //     </>
+
+            // <div className="sidebar">
+            //     <a href="#home"><i className="fa fa-fw fa-home"></i> Home</a>
+            //     <a href="#services"><i className="fa fa-fw fa-wrench"></i> Services</a>
+            //     <a href="#clients"><i className="fa fa-fw fa-user"></i> Clients</a>
+            //     <a href="#contact"><i className="fa fa-fw fa-envelope"></i> Contact</a>
+            // </div>
+            //<i className="fa fa-fw fa-search"></i>
+        <>
+
+
+
+            <div className="topnav">
+
+                    <a className="active" href="/">
+                        <i className="fa fa-fw fa-home"></i>
+                        Home
+                    </a>
+                    <a href="#about">
+                        <i className="fa fa-fw fa-envelope"></i>
+                        About
+                    </a>
+                    <a href="#contact">Contact</a>
+                <a href="#"><i className="fa fa-fw fa-user"></i> Login</a>
+                <input
+                        type="text"
+                        placeholder="Search.."
+                        onChange={this.handleSearchInput}
+                        value={this.state.searchText}
+                        onKeyUp={this.handleSearchKeyUp}
+                        type="text"
+                        placeholder="Search"
+                    />
+                </div>
+            </>
+        );
+    }
+}
+
+export default Navigation;
