@@ -57,10 +57,10 @@ export const getAbout = () => {
     };
 };
 
-export const getAboutSuccess = (posts) => {
+export const getAboutSuccess = (about) => {
     return {
         type: GET_ABOUT_SUCCESS,
-        payload: posts,
+        payload: about,
     };
 };
 

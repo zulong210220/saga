@@ -44,7 +44,7 @@ const PostReducer = (state = initialState, action) => {
       state = { ...state, loadingPostDetails: true };
       break;
     case GET_POST_DETAILS_SUCCESS:
-      state = { ...state, post: action.payload[0], loadingPostDetails: false };
+      state = { ...state, post: action.payload, loadingPostDetails: false };
       break;
     case GET_POST_DETAILS_FAIL:
       state = {

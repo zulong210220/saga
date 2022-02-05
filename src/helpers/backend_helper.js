@@ -6,10 +6,7 @@ export const getPosts = () => get(url.GET_POSTS);
 
 //Post
 export const getPostDetails = (id) =>
-  get(url.GET_POST_DETAILS, {
-    params: {
-      id: id,
-    },
+  get(url.GET_POST_DETAILS+"/"+id, {
  });
 
 // about
