@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 * */
 
 import axios from 'axios'
+import {getPostDetailsSuccess} from "../store/posts/actions";
 class PostDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -28,28 +29,39 @@ class PostDetails extends React.Component {
   }
   componentDidMount() {
   //请求接口的方法
-    var  api='http://192.168.50.101:8000/posts/'+this.props.id;
-    axios.get(api)
-        .then((response) =>{
-          //console.log(response);
-          console.log("axios",response.data);
-          //用到this需要注意指向，箭头函数
+      // bug fix lazy
+      const {post, loadingPostDetails} = getPostDetailsSuccess()
+      //console.log("-----", post, loadingPostDetails)
+      if (post!== undefined) {
           this.setState({
-            list:response.data.body,
-            title: response.data.title,
-            author: response.data.author,
-            isLoading: false ,
+              list:post.body,
+              title: post.title,
+              author: post.author,
+              isLoading: false ,
           })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
-
+      } else {
+             var  api='http://192.168.50.101:8000/posts/'+this.props.id;
+             axios.get(api)
+                 .then((response) =>{
+                   //console.log(response);
+                   console.log("axios",response.data);
+                   //用到this需要注意指向，箭头函数
+                   this.setState({
+                     list:response.data.body,
+                     title: response.data.title,
+                     author: response.data.author,
+                     isLoading: false ,
+                   })
+                 })
+                 .catch(function (error) {
+                   // handle error
+                   console.log(error);
+                 });
+      }
   }
-  render() {
-    return (
-        <Container>
+    render() {
+        return (
+            <Container>
           {this.state.isLoading ? (
               <div className="loader">
                 <Oval color="#00BFFF" height={80} width={80} />
@@ -75,16 +87,11 @@ class PostDetails extends React.Component {
 export default PostDetails
 
 //export default function PostDetails11() {
-  function PostDetails11() {
+ function PostDetails11() {
   const {post, loadingPostDetails} = useSelector(
       (state) => state.PostReducer
   );
 
-  console.log(post.body)
-  console.debug("body:",typeof post.body)
-
-  //console.debug("body:",post.body.values())
-  //console.log(post.body.length)
   return (
       <Container>
         {loadingPostDetails ? (
@@ -97,7 +104,11 @@ export default PostDetails
               <Card.Body>
                 <Card.Subtitle>{post.author}</Card.Subtitle>
                 <Card.Text>
-                    {post.body}
+                     if( !_.isEmpty(post) ){
+                    post.body.map((value,key)=>{
+                      <Card.Text key={key}>{value}</Card.Text>
+                    })
+                  }
                 </Card.Text>
               </Card.Body>
             </Card>

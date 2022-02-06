@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import PostDetails from "../components/PostDetails";
+import PostDetails11 from "../components/PostDetails";
 import { useDispatch } from "react-redux";
 import { getPostDetails } from "../store/posts/actions";
 import { useParams } from "react-router-dom";
@@ -19,4 +20,5 @@ function SinglePost() {
     </Container>
   );
 }
+//<PostDetails id={params.id}/>
 export default SinglePost;

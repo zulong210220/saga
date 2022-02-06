@@ -23,6 +23,7 @@ const initialState = {
 };
 
 const PostReducer = (state = initialState, action) => {
+  console.log("PostReducer", state,":",action.type, ":",action.payload)
   switch (action.type) {
     case GET_POSTS:
       state = { ...state, loadingPosts: true };
