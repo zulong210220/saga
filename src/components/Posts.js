@@ -32,7 +32,8 @@ export default function Posts() {
 
   return (
     <Container>
-      {loadingPosts ? (
+      {
+        loadingPosts ? (
         <div className="loader">
           <Bars
               color="#00BFFF"
@@ -59,7 +60,8 @@ export default function Posts() {
             </Row>
           );
         })
-      )}
+      )
+      }
     </Container>
   );
 }
