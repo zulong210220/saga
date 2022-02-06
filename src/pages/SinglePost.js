@@ -15,7 +15,7 @@ function SinglePost() {
 
   return (
     <Container className="single-post">
-      <PostDetails />
+      <PostDetails id={params.id}/>
     </Container>
   );
 }
