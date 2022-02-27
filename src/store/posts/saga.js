@@ -13,6 +13,16 @@ import {
 
 import { getPosts, getPostDetails, getAbout } from "../../helpers/backend_helper";
 
+async function fetchAsync(func) {
+  const response = await func();
+
+  if (response.ok) {
+    return await response.json();
+  }
+
+  throw new Error("Unexpected error!!!");
+}
+
 function* onGetPosts() {
   try {
     const response = yield call(getPosts);

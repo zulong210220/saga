@@ -27,11 +27,21 @@ class PostDetails extends React.Component {
       isLoading: true ,
     }
   }
+
+  sleep(time) {
+      return new Promise(resolve => setTimeout(resolve, time))
+    }
+
   componentDidMount() {
   //请求接口的方法
       // bug fix lazy
       const {post, loadingPostDetails} = getPostDetailsSuccess()
       //console.log("-----", post, loadingPostDetails)
+    //  while (post==undefined) {
+    //this.sleep(100).then(() => {
+    //    console.log('sleep callback')
+    //})
+    //  }
       if (post!== undefined) {
           this.setState({
               list:post.body,
@@ -60,6 +70,8 @@ class PostDetails extends React.Component {
       }
   }
     render() {
+      console.log("-------", this.props)
+        console.log("++++++++", this.state)
         return (
             <Container>
           {this.state.isLoading ? (

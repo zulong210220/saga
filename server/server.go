@@ -241,6 +241,93 @@ func AboutHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 	fmt.Fprintln(w, body)
 }
 
+type User struct {
+	Id        int64  `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Active    bool   `json:"active"`
+	Posts     int    `json:"posts"`
+	Messages  int    `json:"messages"`
+}
+
+func usersFn(r *http.Request, ps httprouter.Params) interface{} {
+	usersStr :=
+		`[
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "active": true,
+      "posts": 10,
+      "messages": 50
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "active": true,
+      "posts": 2,
+      "messages": 268
+    },
+    {
+      "id": 3,
+      "firstName": "John",
+      "lastName": "Smith",
+      "active": false,
+      "posts": 700,
+      "messages": 7
+    },
+    {
+      "id": 4,
+      "firstName": "Kourtney",
+      "lastName": "Nguyen",
+      "active": true,
+      "posts": 745,
+      "messages": 7
+    },
+    {
+      "id": 5,
+      "firstName": "Janice",
+      "lastName": "Ball",
+      "active": false,
+      "posts": 8,
+      "messages": 0
+    },
+    {
+      "id": 6,
+      "firstName": "Josef",
+      "lastName": "Matthews",
+      "active": true,
+      "posts": 85,
+      "messages": 89
+    },
+    {
+      "id": 7,
+      "firstName": "Shanai",
+      "lastName": "Hendrix",
+      "active": true,
+      "posts": 789,
+      "messages": 7891
+    },
+    {
+      "id": 8,
+      "firstName": "Clay",
+      "lastName": "Chung",
+      "active": true,
+      "posts": 8,
+      "messages": 5
+    }
+ ]`
+
+	users := []*User{}
+	err := json.Unmarshal([]byte(usersStr), &users)
+	if err != nil {
+		fmt.Println("Unmarshal users failed %v", err)
+	}
+	fmt.Println("users %v", time.Now())
+	return users
+}
+
 func main() {
 	//http.HandleFunc("/", HelloHandler)
 	//http.HandleFunc("/blogs", BlogsHandler)
@@ -252,6 +339,7 @@ func main() {
 	router.GET("/blogs/:id", BlogHandler)
 	router.GET("/posts", BlogsHandler)
 	router.GET("/posts/:id", BlogHandler)
+	router.GET("/users", NewHandler(usersFn))
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }

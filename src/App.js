@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import Singlepost from "./pages/SinglePost";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import UsersWithReduxSaga from "./pages/Users";
+
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
           <Route exact path="/" element={<Home/>} />
           <Route exact path="/about" element={<About/>} />
           <Route exact path="/:id" element={<Singlepost/>} />
+            <Route exact path="/redux-saga" element={<UsersWithReduxSaga/>}/>
         </Routes>
       </Router>
       </div>

@@ -79,7 +79,7 @@ class Navigation extends React.Component {
                                 <i className="fa fa-home"></i>
                                 <span>Home</span>
                             </a>
-                            <a href="#" className="nav-item nav-link">
+                            <a href="/redux-saga" className="nav-item nav-link">
                                 <i className="fa fa-gears"></i>
                                 <span>Projects</span>
                             </a>
